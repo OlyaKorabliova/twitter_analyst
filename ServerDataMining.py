@@ -99,14 +99,43 @@ def fetchPeople(person, n_of_pages):
                         json.dump(tweets[i], fp, ensure_ascii=False)
                     new_tweets.clear()
 
+            #update_list_file(api, "list_of_US_Politicians.txt")
+
             return "Done"
         except tweepy.TweepError:
             time.sleep(60 * 15)
             continue
 
 
+def update_list_file(api, filename):
+    with open(filename, "a") as mainfile:
+        fullname = api.get_user(person, include_entities=1).name
+        mainfile.write(fullname + ' = ' + person + '.json' + "\n")
+
 if __name__ == '__main__':
-    screen_name = ["@AvakovArsen"]
+    us_politicians = ["@BillClinton", "@donnabrazile", "@NancyPelosi", "@JoeBiden", "@DWStweets",
+                      "@theclobra", "@madeleine", "@kharyp", "@GDouglasJones", "@SenShelby", "@SenDanSullivan",
+                      "@lisamurkowski", "@SenJohnMcCain", "@JeffFlake", "@SenTomCotton", "@JohnBoozman",
+                      "@SenFeinstein", "@KamalaHarris", "@SenCoryGardner", "@SenBennetCO", "@SenBlumenthal",
+                      "@ChrisMurphyCT", "@SenatorCarper", "@ChrisCoons", "@SenBillNelson", "@marcorubio",
+                      "@sendavidperdue", "@SenatorIsakson", "@SenBrianSchatz", "@maziehirono", "@SenatorRisch",
+                      "@MikeCrapo", "@SenDuckworth", "@SenatorDurbin", "@SenToddYoung", "@SenDonnelly", "@SenJoniErnst",
+                      "@ChuckGrassley", "@SenPatRoberts", "@JerryMoran", "@SenateMajLdr", "@RandPaul",
+                      "@SenJohnKennedy", "@BillCassidy", "@SenAngusKing", "@SenatorCollins", "@SenatorCardin",
+                      "@ChrisVanHollen", "@SenWarren", "@SenMarkey", "@SenGaryPeters", "@SenStabenow", "@amyklobuchar",
+                      "@TinaSmithMN", "@SenThadCochran", "@SenatorWicker", "@RoyBlunt", "@clairecmc", "@SenatorTester",
+                      "@SteveDaines", "@SenSasse", "@SenatorFischer", "@SenCortezMasto", "@SenDeanHeller",
+                      "@SenatorHassan", "@SenatorShaheen", "@SenatorMenendez", "@CoryBooker", "@MartinHeinrich",
+                      "@SenatorTomUdall", "@SenGillibrand", "@SenSchumer", "@SenThomTillis", "@SenatorBurr",
+                      "@SenatorHeitkamp", "@SenJohnHoeven", "@SenSherrodBrown", "@senrobportman", "@SenatorLankford",
+                      "@jiminhofe", "@RonWyden", "@SenJeffMerkley", "@SenToomey", "@SenBobCasey", "@SenJackReed",
+                      "@SenWhitehouse", "@SenatorTimScott", "@GrahamBlog", "@SenatorRounds", "@SenJohnThune",
+                      "@SenAlexander", "@SenBobCorker", "@SenTedCruz", "@JohnCornyn", "@SenOrrinHatch", "@SenMikeLee",
+                      "@SenatorLeahy", "@SenSanders", "@timkaine", "@MarkWarner", "@PattyMurray", "@SenatorCantwell",
+                      "@Sen_JoeManchin", "@SenCapito", "@SenatorBaldwin", "@SenRonJohnson", "@SenatorEnzi",
+                      "@SenJohnBarrasso"]
+
+    screen_name = us_politicians[25:50]
 
     begin = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     bg = gmtime()
@@ -114,7 +143,7 @@ if __name__ == '__main__':
     print("\n")
     count = 0
     for person in screen_name:
-        fetchPeople(person, n_of_pages=1000)
+        fetchPeople(person, n_of_pages=50)
         count += 1
         print(count)
         print(person)
